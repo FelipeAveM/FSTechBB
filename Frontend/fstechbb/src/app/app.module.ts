@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { LocationComponent } from './components/location/location.component';
+import { LocationsComponent } from './components/locations/locations.component';
+import { CrudLocationComponent } from './components/crud-location/crud-location.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LocationComponent
+    LocationsComponent,
+    CrudLocationComponent
   ],
   imports: [
     BrowserModule

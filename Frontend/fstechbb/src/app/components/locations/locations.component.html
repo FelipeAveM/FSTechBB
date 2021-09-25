@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style>
+            p.uppercase {
+              text-transform: uppercase;
+            }
+            
+            p.lowercase {
+              text-transform: lowercase;
+            }
+            
+            p.capitalize {
+              text-transform: capitalize;
+            }
+            </style>
+    </head>
     <body>
         <div>
             <h1>ALL LOCATIONS</h1>
             <br>
             <div *ngFor="let location of locations">
-                <h3>{{ location.name | json }} </h3>
-                <h5>AREA: {{ location.area_m2 | json }} m2</h5>
-                <h5>PARENT: {{ location.parent_loc | json }}</h5>
-                <h5>INTERNAL LOCATIONS: {{ location.internal_loc | json }}</h5>
+                <h3> <p class="uppercase">{{ location.name}} </p></h3>
+                <h5> <p> AREA: {{ location.area_m2}}m2 </p> </h5>
+                <h5> <p> PARENT: {{ location.parent_loc}} </p> </h5>
+                <h5> <p> INTERNAL LOCATIONS: {{ location.internal_loc}} </p> </h5>
                 <br>
-            
+
             </div>
 
         </div>

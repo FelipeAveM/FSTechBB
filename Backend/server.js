@@ -11,33 +11,6 @@ const port = 3000
 const app = express()
 
 
-/*
-const server = http.createServer(function (req, res) {
-
-    fs.readFile('app.html', function (err, htmldata) {
-        if (err) {
-            console.log("Error: " + err)
-            res.writeHead(404)
-            res.write("Error al leer archivo")
-        }
-        else {
-            res.write(htmldata)
-        }
-        //res.end()
-    })
-    //res.write("Hi!")
-    //res.end()
-})
-
-server.listen(port, function (error) {
-    if (error) {
-        console.log(error)
-    }
-    else {
-        console.log("Server up on port: " + port)
-    }
-})
-*/
 //LOCAL DATABASE-------------------------------------------------------------------------------------------------------
 const mysql = require('mysql');
 const { json } = require('express');
@@ -53,31 +26,7 @@ const conn = mysql.createConnection({
     socketPath: '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock'
 });
 
-//app.engine('html', engines.mustache);
-//app.set('view engine', 'html');
-//app.use(express.static("public"));
 app.use(bodyParser.json({ limit: '50mb' }));
-//app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-//app.use(compression());
-
-/*CORS middleware
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});*/
-
-
-/*LOCATION TABLE 
-conn.query('SELECT * FROM Location where id = 2', (err, res, fields) =>{
-    if(err){
-        return console.log(err)
-    }
-    else{
-        return console.log(res)
-    }
-})*/
 
 //CREATE --------------------------------------------
 
@@ -176,6 +125,20 @@ function setLocation(location, callback) {
 
 //READ ----------------------------------------------
 
+
+app.get('/get/locations/', function (req, response) {
+    getLocations(function (res) {
+        if (res.length > 0) {
+            console.log('Location found')
+            response.json(res)
+        }
+        else {
+            console.log('Location not found')
+            response.end()
+        }
+    })
+})
+
 app.get('/get/location/:id', function (req, response) {
     var id = req.params.id
     getLocationById(id, function (res) {
@@ -239,10 +202,19 @@ app.get('/get/internals/:id', function (req, response) {
     })
 })
 
+function getLocations(callback) {
+    conn.query('SELECT * FROM Location', function (error, results) {
+        if (error) {
+            console.log("ERROR AL OBTENER DATOS: " + error);
+        }
+        else {
+            console.log("DATOS OBTENIDOS: " + results);
+            callback(results);
+        }
+    })
+}
+
 function getLocationById(id, callback) {
-    console.log("Location_ID: " + id);
-    var query = 'SELECT * FROM Location WHERE id = ' + id
-    console.log(query)
     conn.query('SELECT * FROM Location WHERE id = ?', [id], function (error, results) {
         if (error) {
             console.log("ERROR AL OBTENER DATOS: " + error);
@@ -255,9 +227,6 @@ function getLocationById(id, callback) {
 }
 
 function getLocationsById(id, callback) {
-    console.log("Location_ID: " + id);
-    var query = 'SELECT * FROM Location WHERE id in (' + id + ')'
-    console.log(query)
     conn.query('SELECT * FROM Location WHERE id in ( ? )', [id], function (error, results) {
         if (error) {
             console.log("ERROR AL OBTENER DATOS: " + error);
@@ -271,7 +240,6 @@ function getLocationsById(id, callback) {
 
 
 function getParentById(id, callback) {
-    console.log("Location_ID: " + id);
     conn.query('SELECT parent_loc FROM Location WHERE id = ?', [id], function (error, results) {
         if (error) {
             console.log("ERROR AL OBTENER DATOS: " + error);
@@ -284,7 +252,6 @@ function getParentById(id, callback) {
 }
 
 function getInternalsById(id, callback) {
-    console.log("Location_ID: " + id);
     conn.query('SELECT internal_loc FROM Location WHERE id = ?', [id], function (error, results) {
         if (error) {
             console.log("ERROR AL OBTENER DATOS: " + error);

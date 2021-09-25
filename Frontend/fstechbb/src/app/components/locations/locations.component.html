@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <a target="_self" href="../../app.component.html">Inicio</a>
-
         <div>
-            <h1>LOCATIONS</h1>
+            <h1>ALL LOCATIONS</h1>
             <br>
             <div *ngFor="let location of locations">
-                <h3>NAME:</h3>
                 <h3>{{ location.name | json }} </h3>
                 <h5>AREA: {{ location.area_m2 | json }} m2</h5>
                 <h5>PARENT: {{ location.parent_loc | json }}</h5>

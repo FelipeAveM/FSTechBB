@@ -31,7 +31,7 @@ export class LocationsComponent implements OnInit {
       .subscribe(data => {
         console.log(data)
         this.locations = data;
-        //this.callParent();
+        this.callParent();
         this.callInternals();
       });
 

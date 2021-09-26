@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.create-loc-reg {
+    width: 400px;
+    background: white;
+    padding: 25px;
+    margin: auto;
+    margin-top: 75px;
+    border-radius: 4px;
+    color: #1976d2;
+    box-shadow: 7px 13px 37px #000;
+}
+
+.create-loc-reg h4 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.inputs {
+    width: 100%;
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 2px solid #1976d2;
+    font-size: 19px;
+}
+
+.create-loc-reg .botons {
+    width: 100%;
+    background: #1976d2;
+    border: none;
+    padding: 12px;
+    margin: 16px 0;
+    font-size: 22px;
+    color:white;
+    border-radius: 10px;
+    box-shadow: 7px, 13px, 37px, #000;
+}

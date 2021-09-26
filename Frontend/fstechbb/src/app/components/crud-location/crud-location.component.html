@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>CRUD Locations</title>
+    </head>
     <body>
-        <div>
-            <h1>CRUD LOCATIONS</h1>
+        <br>
+
+        <section class="create-loc-reg">
+            <h4>Create location</h4>
+            <input class="inputs" type="number" name="ID" #idloc
+                placeholder="Register id Location">
+            <input class="inputs" type="text" name="NAME" #nameloc
+                placeholder="Register name Location">
+            <input class="inputs" type="number" name="AREA" #arealoc
+                placeholder="Register area Location">
+            <input class="inputs" type="number" name="PARENT ID" #parentloc
+                placeholder="Register parent id Location">
+            <input class="inputs" type="text" name="INTERNALS ID" #internalsloc
+                placeholder="Register internal id Location">
             <br>
-            
+            <button class="botons" (click)="getValues(idloc.value, nameloc.value,
+                arealoc.value, parentloc.value, internalsloc.value)"> Insert! </button>
+        </section>
+
+        <!--
+        <div>
+            <button> <h1>CRUD LOCATIONS</h1> </button>
+            <br>
+        </div>
+        <div>
+            <h2>CREATE LOCATION </h2>
+
+            <form action="">
+                <label for="">ID:</label>  <input type="number">
+                NAME: <input type="text">
+                AREA(m2): <input type="number">
+                PARENT ID: <input type="number">
+                INTERNALS IDS: <input type="text">
+
+            </form>
 
         </div>
+        -->
     </body>
 </html>

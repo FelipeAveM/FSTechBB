@@ -1,33 +1,20 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <style>
-            p.uppercase {
-              text-transform: uppercase;
-            }
-            
-            p.lowercase {
-              text-transform: lowercase;
-            }
-            
-            p.capitalize {
-              text-transform: capitalize;
-            }
-            </style>
-    </head>
-    <body>
-        <div>
-            <h1>ALL LOCATIONS</h1>
-            <br>
-            <div *ngFor="let location of locations">
-                <h3> <p class="uppercase">{{ location.name}} </p></h3>
-                <h5> <p> AREA: {{ location.area_m2}}m2 </p> </h5>
-                <h5> <p> PARENT: {{ location.parent_loc}} </p> </h5>
-                <h5> <p> INTERNAL LOCATIONS: {{ location.internal_loc}} </p> </h5>
-                <br>
-
-            </div>
-
-        </div>
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Locations</title>
+  </head>
+  <body>
+    <section class="loc-reg" >
+      <h1>All Locations</h1>
+      <div *ngFor="let location of locations">
+        <h3>{{ location.name}} </h3>
+        <h5> AREA: {{ location.area_m2}}m2 </h5>
+        <h5> PARENT: {{ location.parent_loc}} </h5>
+        <h5> INTERNAL LOCATIONS: {{ location.internal_loc}} </h5>
+      </div>
+    </section>
+  </body>
 </html>

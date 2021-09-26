@@ -3,14 +3,18 @@ version: "3.7"
 services:
 
   mysql:
-      image: mysql
+    
+      platform: linux/x86_64
+      image: mysql:8.0
+      ports:
+       - 3006:3006
       volumes:
-        - ./mysql-data:/Applications/XAMPP/xamppfiles/var/mysql
+        - ./mysql-data:/Applications/LAMPP/xamppfiles/var/mysql
       environment:
         MYSQL_ROOT_PASSWORD: 123456
         MYSQL_DATABASE: fstechbb
 
-        
+
   app:
     image: felipeam/node-fstechbb
     ports: 
@@ -19,6 +23,6 @@ services:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: 123456
-      MYSQL_DB: fstechbb
+      MYSQL_DATABASE: fstechbb
 
     

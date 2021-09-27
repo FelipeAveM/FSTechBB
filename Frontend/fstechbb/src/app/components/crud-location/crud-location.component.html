@@ -7,24 +7,44 @@
         <title>CRUD Locations</title>
     </head>
     <body>
-        <br>
-
-        <section class="create-loc-reg">
-            <h4>Create location</h4>
-            <input class="inputs" type="number" name="ID" #idloc
-                placeholder="Register id Location">
-            <input class="inputs" type="text" name="NAME" #nameloc
-                placeholder="Register name Location">
-            <input class="inputs" type="number" name="AREA" #arealoc
-                placeholder="Register area Location">
-            <input class="inputs" type="number" name="PARENT ID" #parentloc
-                placeholder="Register parent id Location">
-            <input class="inputs" type="text" name="INTERNALS ID" #internalsloc
-                placeholder="Register internal id Location">
-            <br>
-            <button class="botons" (click)="getValues(idloc.value, nameloc.value,
-                arealoc.value, parentloc.value, internalsloc.value)"> Insert! </button>
-        </section>
+        <table>
+            <td>
+                <section class="create-loc-reg">
+                    <h4>Create location</h4>
+                    <input mdInput class="inputs" type="number" name="ID" #idloc
+                        placeholder="Reg id Location" #filterName>
+                    <input mdInput class="inputs" type="text" name="NAME"
+                        #nameloc
+                        placeholder="Reg name Location" #filterName>
+                    <input mdInput class="inputs" type="number" name="AREA"
+                        #arealoc
+                        placeholder="Reg area Location" #filterName>
+                    <input mdInput class="inputs" type="number" name="PARENT ID"
+                        #parentloc
+                        placeholder="Reg parent id Location" #filterName>
+                    <input mdInput class="inputs" type="text" name="INTERNALS
+                        ID" #internalsloc
+                        placeholder="Reg internal locations id(Example: 1,2,3)"
+                        #filterName>
+                    <button class="botons" (click)="getValues(idloc.value,
+                        nameloc.value,
+                        arealoc.value, parentloc.value, internalsloc.value)" (click)="reloadLocations()" > {{
+                        dataButton }} </button>
+                </section>
+            </td>
+            <td><br></td>
+            <td>
+                <section class="create-loc-reg">
+                    <h4>Update location</h4>
+                    <input mdInput class="inputs" type="number" name="ID" #idupd
+                        placeholder="Reg id Location" #filterName>
+                    <input mdInput class="inputs" type="text" name="NAME" #nameupd
+                        placeholder="Reg name Location" #filterName>
+                    <button class="botons" (click)="updateLocation(idupd.value,
+                        nameupd.value)" (click)="reloadLocations()"> Update </button>
+                </section>
+            </td>
+        </table>
 
         <!--
         <div>

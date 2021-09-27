@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetService } from 'src/app/services/get.service';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-locations',
@@ -17,8 +18,14 @@ export class LocationsComponent implements OnInit {
   public internalsData: any = [];
   public internals: any = [];
   public defaultInts = 'No Internals';
+  public idLocations: any = [];
+  public bodyData: any = [];
+  public missingData = 'Missing Data. Please fill required fields.';
+  public dataButton = 'Insert!';
 
-  constructor(private GetService: GetService) {
+  @ViewChild('idupd') inputFilters: any;
+
+  constructor(private GetService: GetService, private PostService: PostService) {
 
 
   }
@@ -96,6 +103,99 @@ export class LocationsComponent implements OnInit {
     else this.locations[index].internal_loc = this.internals[index];
     console.log(this.locations[index].internal_loc);
 
+  }
+
+
+
+  //------------CRUD----------
+
+  public sendData() {
+    var body = {
+      id: this.bodyData[0],
+      name: this.bodyData[1],
+      area_m2: this.bodyData[2],
+      parent_loc: this.bodyData[3],
+      internal_loc: JSON.parse(this.bodyData[4])
+    }
+
+    this.PostService.post(this.url + 'add/location/', body)
+      .subscribe(data => {
+        console.log('Location sent!')
+        if(data != null){
+          console.log(data);
+          this.ngOnInit();
+          this.reloadLocations();
+        }
+      });
+  }
+
+  public getValues(id: any, name: any, area: any, parent: any, internals: any) {
+    console.log('Entró a getValues()');
+    if (id == '' || name == '' || area == '') {
+      console.log(this.missingData);
+    }
+    else {
+      this.bodyData[0] = id;
+      this.bodyData[1] = name;
+      this.bodyData[2] = area;
+      if(internals != '') this.bodyData[3] = parent;
+      else this.bodyData[3] = null;
+      if(internals != '') this.bodyData[4] = '[' + internals + ']';
+      else this.bodyData[4] = null;
+      this.sendData();
+    }
+  }
+
+  updateLocation(id: any, name: any){
+    console.log('Entró a updateLocation()');
+    if (id == '' || name == '') {
+      console.log(this.missingData);
+    }
+    else {
+      this.bodyData[0] = id;
+      this.bodyData[1] = name;
+
+      var body = {
+        id: this.bodyData[0],
+        name: this.bodyData[1]
+      }
+      if(id != ''){
+        this.PostService.post(this.url + 'update/name/', body)
+        .subscribe(data => {
+          console.log('Location sent to update!')
+          if(data != null){
+            console.log(data);
+            this.ngOnInit();
+            this.reloadLocations();
+          }
+        });
+      }
+    }
+    
+  }
+
+  deleteLocation(id: any){
+    console.log('id = ' + id);
+    var body = {
+      id: 0
+    }
+    console.log('Entró a deleteLocation() id = ' + id);
+    if(id != ''){
+      this.PostService.post(this.url + 'remove/location/' + id, body)
+      .subscribe(data => {
+        console.log('Location sent to delete!');
+        if(data != null) console.log(data);
+        this.ngOnInit();
+      });
+    }
+  }
+
+  //-----OTHERS METHODS
+
+  reloadLocations(){
+    console.log('reloadLocations');
+    this.ngOnInit();
+    this.inputFilters.nativeElement.value('');
   }
 }
 

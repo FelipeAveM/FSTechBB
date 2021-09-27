@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/cor
 import { HttpClient } from '@angular/common/http';
 import { GetService } from 'src/app/services/get.service';
 import { PostService } from 'src/app/services/post.service';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-locations',
@@ -22,8 +23,20 @@ export class LocationsComponent implements OnInit {
   public bodyData: any = [];
   public missingData = 'Missing Data. Please fill required fields.';
   public dataButton = 'Insert!';
+  public createForm = new FormGroup({
+    idcrt: new FormControl('', Validators.required),
+    namecrt: new FormControl('', Validators.required),
+    areacrt: new FormControl('', Validators.required),
+    parentcrt: new FormControl(''),
+    internalcrt: new FormControl('')
+  });
 
-  @ViewChild('idupd') inputFilters: any;
+  public updateForm = new FormGroup({
+    idupdte: new FormControl('', Validators.required),
+    nameupdte: new FormControl('', Validators.required),
+  });
+
+
 
   constructor(private GetService: GetService, private PostService: PostService) {
 
@@ -127,6 +140,7 @@ export class LocationsComponent implements OnInit {
           this.reloadLocations();
         }
       });
+      this.createForm.reset();
   }
 
   public getValues(id: any, name: any, area: any, parent: any, internals: any) {
@@ -171,7 +185,7 @@ export class LocationsComponent implements OnInit {
         });
       }
     }
-    
+    this.updateForm.reset();
   }
 
   deleteLocation(id: any){
@@ -195,7 +209,8 @@ export class LocationsComponent implements OnInit {
   reloadLocations(){
     console.log('reloadLocations');
     this.ngOnInit();
-    this.inputFilters.nativeElement.value('');
+    
+
   }
 }
 

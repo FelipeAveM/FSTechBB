@@ -20,3 +20,4 @@
 
 6. Generate server to Angular proyect
     ng serve
+    

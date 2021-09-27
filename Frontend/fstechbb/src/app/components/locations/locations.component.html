@@ -9,43 +9,74 @@
   <body>
     <table>
       <td>
-          <section class="create-loc-reg">
-              <h4>Create location</h4>
-              <input mdInput class="inputs" type="number" name="ID" #idloc
-                  placeholder="Reg id Location" #filterName required>
-              <input mdInput class="inputs" type="text" name="NAME"
-                  #nameloc
-                  placeholder="Reg name Location" #filterName required>
-              <input mdInput class="inputs" type="number" name="AREA"
-                  #arealoc
-                  placeholder="Reg area Location" #filterName required>
-              <input mdInput class="inputs" type="number" name="PARENT ID"
-                  #parentloc
-                  placeholder="Reg parent id Location" #filterName>
-              <input mdInput class="inputs" type="text" name="INTERNALS
-                  ID" #internalsloc
-                  placeholder="Reg internal locations id(Example: 1,2,3)"
-                  #filterName>
-              <button class="botons" (click)="getValues(idloc.value,
-                  nameloc.value,
-                  arealoc.value, parentloc.value, internalsloc.value)" (click)="reloadLocations()" > {{
-                  dataButton }} </button>
-          </section>
+        <section class="create-loc-reg">
+          <h4>Create location</h4>
+          <form [formGroup]="createForm">
+            <input
+              class="inputs"
+              type="number"
+              #idloc
+              placeholder="Reg id Location"
+              fromControlName="idcrt">
+            <input class="inputs" type="text"
+              #nameloc
+              placeholder="Reg name Location"
+              fromControlName="namecrt">
+            <input
+              class="inputs"
+              type="number"
+              #arealoc
+              placeholder="Reg area Location"
+              fromControlName="areacrt">
+            <input
+              class="inputs"
+              type="number"
+              #parentloc
+              placeholder="Reg parent id Location"
+              fromControlName="parentcrt">
+            <input
+              class="inputs"
+              type="text"
+              #internalsloc
+              placeholder="Reg internal locations id(Example: 1,2,3)"
+              fromControlName="internalcrt">
+
+            <button
+              class="botons"
+              (click)="getValues(idloc.value, nameloc.value, arealoc.value,
+              parentloc.value, internalsloc.value)"
+              (click)="reloadLocations()"> Create </button>
+          </form>
+        </section>
       </td>
       <td><br></td>
       <td>
+        <form [formGroup]="updateForm">
           <section class="create-loc-reg">
-              <h4>Update location</h4>
-              <input mdInput class="inputs" type="number" name="ID" #idupd
-                  placeholder="Reg id Location" #filterName required>
-              <input mdInput class="inputs" type="text" name="NAME" #nameupd
-                  placeholder="Reg name Location" #filterName required>
-              <button class="botons" (click)="updateLocation(idupd.value,
-                  nameupd.value)" (click)="reloadLocations()"> Update </button>
+            <h4>Update location</h4>
+            <input 
+              class="inputs" 
+              type="number" 
+              #idupd
+              placeholder="Reg id Location"
+              fromControlName="idupdte">
+            <input 
+              class="inputs" 
+              type="text" 
+              #nameupd
+              placeholder="Reg name Location"
+              fromControlName="nameupdte">
+            <button 
+              class="botons" 
+              (click)="updateLocation(idupd.value, nameupd.value)" 
+              (click)="reloadLocations()"> Update  </button>
+            <a href="/Frontend/fstechbb/src/app/app.component.html" class="botons" (click)="reloadLocations()" target="_self"> Clear</a>
+
           </section>
+        </form>
       </td>
-  </table>
-    <section class="loc-reg" >
+    </table>
+    <section class="loc-reg">
       <h1>All Locations</h1>
       <div *ngFor="let location of locations">
         <h3>{{ location.name}} </h3>
@@ -53,7 +84,8 @@
         <h5> PARENT: {{ location.parent_loc}} </h5>
         <h5> INTERNAL LOCATIONS: {{ location.internal_loc}} </h5>
         <h5> Id Loc: {{ location.id}} </h5>
-        <button class="botons" (click)="deleteLocation(location.id)"> Delete   </button>
+        <button class="botons" (click)="deleteLocation(location.id)"> Delete
+        </button>
       </div>
     </section>
   </body>
